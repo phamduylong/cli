@@ -15,7 +15,7 @@
 	let lastCommandIdx = commandHistory.length - 1;
 
 	onMount(() => {
-		if(document) document.getElementById('command')?.focus();
+		if (document) document.getElementById('command')?.focus();
 	});
 </script>
 <div class="flex !flex-row space-x-2">
