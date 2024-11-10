@@ -1,5 +1,5 @@
 <script>
-	const commands = ['help', 'whoami', 'projects', 'contact', 'clear'];
+	const commands = ['help', 'whoami', 'projects', 'contact', 'clear', 'main'];
 	import CommandInput from '$lib/components/CommandInput.svelte';
 	let command = $state('');
 	let output = $state('');
@@ -26,6 +26,25 @@
 			case 'clear':
 				output = '';
 				break;
+			case 'main':
+				/**
+				 * @see https://tw-elements.com/docs/standard/components/spinners/
+				 */
+				output = `Redirecting to my website
+				<div
+					class="text-primary inline-block h-4 w-4 animate-spin rounded-full 
+					border-4 border-solid border-current border-e-transparent 
+					align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+					role="status"
+				>
+					<span
+						class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+						>Loading...</span
+					>
+				</div>
+				`;
+				window.location.href = 'https://longph.com';
+				break;
 			case '':
 				break;
 			default:
@@ -39,6 +58,7 @@
 	<div class="container flex flex-col !overflow-hidden p-4 !text-[#b89076]">
 		<div class="font-bold">Welcome to my interactive web terminal.</div>
 		<div class="font-bold">For a list of available commands, type 'help'.</div>
+		<div class="font-bold">To go to my personal website, type 'main'.</div>
 		<CommandInput commit={handleCommand} bind:command />
 		{#if output}
 			<div class="space-x-1">&#8618;&nbsp;{@html output}</div>
