@@ -3,7 +3,7 @@
 	import CommandInput from '$lib/components/CommandInput.svelte';
 	let command = $state('');
 	let output = $state('');
-
+	
 	/**
 	 * Handle the command input from the user.
 	 * @param {CustomEvent<string>} e - The command event.
@@ -44,6 +44,7 @@
 				</div>
 				`;
 				window.location.href = 'https://longph.com';
+				window.onbeforeunload = () => output = '';
 				break;
 			case '':
 				break;
