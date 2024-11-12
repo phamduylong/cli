@@ -1,9 +1,13 @@
 <script>
 	const commands = ['help', 'whoami', 'projects', 'contact', 'clear', 'main'];
 	import CommandInput from '$lib/components/CommandInput.svelte';
+	import { onMount } from 'svelte';
 	let command = $state('');
 	let output = $state('');
-	
+	onMount(() => {
+		command = '';
+		output = '';
+	});
 	/**
 	 * Handle the command input from the user.
 	 * @param {CustomEvent<string>} e - The command event.
@@ -44,7 +48,6 @@
 				</div>
 				`;
 				window.location.href = 'https://longph.com';
-				window.onbeforeunload = () => output = '';
 				break;
 			case '':
 				break;
