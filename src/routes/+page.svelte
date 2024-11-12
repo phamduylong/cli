@@ -1,10 +1,11 @@
 <script>
+	import { afterNavigate } from '$app/navigation';
 	const commands = ['help', 'whoami', 'projects', 'contact', 'clear', 'main'];
 	import CommandInput from '$lib/components/CommandInput.svelte';
 	import { onMount } from 'svelte';
 	let command = $state('');
 	let output = $state('');
-	onMount(() => {
+	afterNavigate(() => {
 		command = '';
 		output = '';
 	});
