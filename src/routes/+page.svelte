@@ -1,57 +1,26 @@
 <script>
 	const commands = ['help', 'whoami', 'projects', 'contact', 'clear', 'main'];
 	import CommandInput from '$lib/components/CommandInput.svelte';
+	import Contact from '$lib/components/Contact.svelte';
+	import Help from '$lib/components/Help.svelte';
+	import Projects from '$lib/components/Projects.svelte';
+	import Redirecting from '$lib/components/Redirecting.svelte';
 	let command = $state('');
 	let output = $state('');
-	
+
 	/**
 	 * Handle the command input from the user.
 	 * @param {CustomEvent<string>} e - The command event.
 	 */
 	function handleCommand(e) {
-		switch (e.detail.trim().toLowerCase()) {
-			case 'help':
-				output = `<b>Available commands:</b><div><ul>${commands.map((command) => `<li>&nbsp;&nbsp;${command}</li>`).join('')}</ul></div>`;
-				break;
-			case 'whoami':
-				output = "I'm Long Pham, a software engineer based in Espoo, Finland.";
-				break;
-			case 'projects':
-				output = `You can find my projects&nbsp;<a class="underline" href="https://longph.com/projects">here</a>.`;
-				break;
-			case 'contact':
-				output = `You can contact me via email at <a class="underline" href="mailto:longphamduy2002@gmail.com">longphamduy2002@gmail.com</a> 
-          or <a class="underline" href="https://longph.com/contact" target="_blank"> write to me.</a>`;
-				break;
-			case 'clear':
-				output = '';
-				break;
-			case 'main':
-				/**
-				 * @see https://tw-elements.com/docs/standard/components/spinners/
-				 */
-				output = `Redirecting to my website
-				<div
-					class="text-primary inline-block h-4 w-4 animate-spin rounded-full 
-					border-4 border-solid border-current border-e-transparent 
-					align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-					role="status"
-				>
-					<span
-						class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-						>Loading...</span
-					>
-				</div>
-				`;
+		if (commands.includes(e.detail)) {
+			output = e.detail;
+			
+			if (e.detail === 'main') {
 				window.location.href = 'https://longph.com';
-				window.onbeforeunload = () => output = '';
-				break;
-			case '':
-				break;
-			default:
-				output = "Command not found. Type 'help' for a list of available commands.";
-				break;
-		}
+			}
+		} 
+		else output = 'error';
 	}
 </script>
 
@@ -61,8 +30,27 @@
 		<div class="font-bold">For a list of available commands, type 'help'.</div>
 		<div class="font-bold">To go to my personal website, type 'main'.</div>
 		<CommandInput commit={handleCommand} bind:command />
-		{#if output}
-			<div class="space-x-1">&#8618;&nbsp;{@html output}</div>
-		{/if}
+		<div class="space-x-1">
+			{#if output}
+				{#if output === 'projects'}
+					<Projects />
+				{/if}
+				{#if output === 'help'}
+					<Help />
+				{/if}
+				{#if output === 'whoami'}
+					&#8618;&nbsp;I'm Long Pham, a software engineer based in Espoo, Finland.
+				{/if}
+				{#if output === 'contact'}
+					<Contact />
+				{/if}
+				{#if output === 'error'}
+					&#8618;&nbsp;Command not found. Type 'help' for a list of available commands.
+				{/if}
+				{#if output === 'main'}
+					<Redirecting />
+				{/if}
+			{/if}
+		</div>
 	</div>
 </main>
