@@ -18,6 +18,7 @@
 		if (document) document.getElementById('command')?.focus();
 	});
 </script>
+
 <div class="flex !flex-row space-x-2">
 	<label for="command" class="font-bold !text-[#1ECC21]">visitor@longph.com:~$</label><input
 		class="w-full overflow-scroll border-none bg-[#151515] font-bold text-[#73abad] outline-none"
