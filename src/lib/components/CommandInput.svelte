@@ -12,7 +12,7 @@
 	let commandHistory = $state(
 		browser ? JSON.parse(localStorage.getItem('commandHistory') ?? '[]') : []
 	);
-	let lastCommandIdx = commandHistory.length - 1;
+	let lastCommandIdx = commandHistory.length;
 
 	onMount(() => {
 		if (document) document.getElementById('command')?.focus();
@@ -46,7 +46,7 @@
 				case 'Enter':
 					commandHistory.push(command.trim());
 					localStorage.setItem('commandHistory', JSON.stringify(commandHistory));
-					lastCommandIdx--;
+					lastCommandIdx = commandHistory.length;
 					commit(new CustomEvent('commit', { detail: command }));
 					command = '';
 					break;
