@@ -15,12 +15,11 @@
 	function handleCommand(e) {
 		if (commands.includes(e.detail)) {
 			output = e.detail;
-			
+
 			if (e.detail === 'main') {
 				window.location.href = 'https://longph.com';
 			}
-		} 
-		else output = 'error';
+		} else output = 'error';
 	}
 </script>
 
