@@ -17,7 +17,11 @@
 			output = e.detail;
 
 			if (e.detail === 'main') {
-				window.location.href = 'https://longph.com';
+				let newTab = window.open('https://longph.com', '_blank');
+				if(newTab) {
+					newTab.focus();
+					output = '';
+				}
 			}
 		} else output = 'error';
 	}
