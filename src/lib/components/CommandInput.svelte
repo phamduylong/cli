@@ -4,11 +4,11 @@
 	/**
 	 * @typedef Props
 	 * @property {string} command - The command input.
-	 * @property {(command: CustomEvent<string>) => void} commit - The function to commit the command.
+	 * @property {(command: CustomEvent<string>) => void} onCommit - The function to commit the command.
 	 */
 
 	/** @type {Props} */
-	let { command = $bindable(''), commit } = $props();
+	let { command = $bindable(''), onCommit } = $props();
 	let commandHistory = $state(
 		browser ? JSON.parse(localStorage.getItem('commandHistory') ?? '[]') : []
 	);
@@ -47,7 +47,7 @@
 					commandHistory.push(command.trim());
 					localStorage.setItem('commandHistory', JSON.stringify(commandHistory));
 					lastCommandIdx = commandHistory.length;
-					commit(new CustomEvent('commit', { detail: command }));
+					onCommit(new CustomEvent('commit', { detail: command }));
 					command = '';
 					break;
 				default:
