@@ -13,10 +13,11 @@
 	 * @param {CustomEvent<string>} e - The command event.
 	 */
 	function handleCommand(e) {
-		if (commands.includes(e.detail)) {
-			output = e.detail;
+		let committedCmd = e.detail.trim();
+		if (commands.includes(committedCmd)) {
+			output = committedCmd;
 
-			if (e.detail === 'main') {
+			if (committedCmd === 'main') {
 				let newTab = window.open('https://longph.com', '_blank');
 				if(newTab) {
 					newTab.focus();
@@ -32,7 +33,7 @@
 		<div class="font-bold">Welcome to my interactive web terminal.</div>
 		<div class="font-bold">For a list of available commands, type 'help'.</div>
 		<div class="font-bold">To go to my personal website, type 'main'.</div>
-		<CommandInput commit={handleCommand} bind:command />
+		<CommandInput onCommit={handleCommand} bind:command />
 		<div class="space-x-1">
 			{#if output}
 				{#if output === 'projects'}
