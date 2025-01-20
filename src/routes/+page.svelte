@@ -14,11 +14,10 @@
 	 */
 	function handleCommand(e) {
 		let committedCmd = e.detail.trim();
-		if (commands.includes(committedCmd)) {
+		if (commands.includes(committedCmd.toLowerCase())) {
 			output = committedCmd;
-
 			if (committedCmd === 'main') {
-				let newTab = window.open('https://longph.com', '_blank');
+				let newTab = window.open('https://longph.dev', '_blank');
 				if(newTab) {
 					newTab.focus();
 					output = '';
